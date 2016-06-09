@@ -27,26 +27,38 @@ class Thor # rubocop:disable ClassLength
     end
     alias_method :default_task, :default_command
 
-    # Adds a callback method that should be executed before a task is executed.
+    # Adds a callback method that should be executed before a command is executed.
     #
     # ==== Parameters
-    # meth<Symbol>:: name of the callback to execute
-    def before_command(meth = nil)
-      @before_commands ||= from_superclass(:before_command, [])
-      @before_commands << meth.to_s if meth
-
-      @before_commands
+    # methods<*String|Symbol>:: Callbacks to execute before command runs.
+    def before_command(*methods)
+      methods.each { |m| register_callback(:before, m) }
     end
+    alias_method :before_task, :before_command
 
     # Adds a callback method that should be executed after a task is executed.
     #
     # ==== Parameters
-    # meth<Symbol>:: name of the callback to execute
-    def after_command(meth = nil)
-      @after_commands ||= from_superclass(:after_command, [])
-      @after_commands << meth.to_s if meth
+    # methods<*String|Symbol>:: Callbacks to execute after command runs.
+    def after_command(*methods)
+      methods.each { |m| register_callback(:after, m) }
+    end
+    alias_method :after_task, :after_command
 
-      @after_commands
+    # All callbacks defined for this class & superclass.
+    def callbacks
+      @callbacks
+    end
+
+    # Register a callback of generic type.
+    #
+    # ==== Parameters
+    # type<Symbol>:: Type of callback to register.
+    # name<Symbol>:: Name of callback command to run.
+    def register_callback(type, name)
+      @callbacks ||= from_superclass(:callbacks, {})
+      @callbacks[type.to_sym] ||= []
+      @callbacks[type.to_sym] << name.to_sym
     end
 
     # Registers another Thor subclass as a command.

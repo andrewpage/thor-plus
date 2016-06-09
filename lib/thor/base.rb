@@ -84,6 +84,7 @@ class Thor
       @args = thor_args.remaining
     end
 
+    # Run callbacks by type.
     def run_callbacks(type)
       callbacks = case type
                   when :before

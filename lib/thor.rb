@@ -47,7 +47,7 @@ class Thor # rubocop:disable ClassLength
 
     # All callbacks defined for this class & superclass.
     def callbacks
-      @callbacks
+      @callbacks ||= from_superclass(:callbacks, {})
     end
 
     # Register a callback of generic type.
@@ -56,9 +56,8 @@ class Thor # rubocop:disable ClassLength
     # type<Symbol>:: Type of callback to register.
     # name<Symbol>:: Name of callback command to run.
     def register_callback(type, name)
-      @callbacks ||= from_superclass(:callbacks, {})
-      @callbacks[type.to_sym] ||= []
-      @callbacks[type.to_sym] << name.to_sym
+      callbacks[type.to_sym] ||= []
+      callbacks[type.to_sym] << name.to_sym
     end
 
     # Registers another Thor subclass as a command.

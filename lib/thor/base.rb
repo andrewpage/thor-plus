@@ -85,16 +85,11 @@ class Thor
     end
 
     # Run callbacks by type.
+    #
+    # ==== Parameters
+    # type<Symbol>:: Type of callbacks to run.
     def run_callbacks(type)
-      callbacks = case type
-                  when :before
-                    self.class.before_command
-                  when :after
-                    self.class.after_command
-                  else
-                    []
-                  end
-
+      callbacks = self.class.callbacks[type.to_sym] || []
       callbacks.each { |c| __send__(c) }
     end
 

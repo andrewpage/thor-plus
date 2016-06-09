@@ -84,6 +84,19 @@ class Thor
       @args = thor_args.remaining
     end
 
+    def run_callbacks(type)
+      callbacks = case type
+                  when :before
+                    self.class.before_command
+                  when :after
+                    self.class.after_command
+                  else
+                    []
+                  end
+
+      callbacks.each { |c| __send__(c) }
+    end
+
     class << self
       def included(base) #:nodoc:
         base.extend ClassMethods

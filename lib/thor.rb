@@ -27,6 +27,28 @@ class Thor # rubocop:disable ClassLength
     end
     alias_method :default_task, :default_command
 
+    # Adds a callback method that should be executed before a task is executed.
+    #
+    # ==== Parameters
+    # meth<Symbol>:: name of the callback to execute
+    def before_command(meth = nil)
+      @before_commands ||= from_superclass(:before_command, [])
+      @before_commands << meth.to_s if meth
+
+      @before_commands
+    end
+
+    # Adds a callback method that should be executed after a task is executed.
+    #
+    # ==== Parameters
+    # meth<Symbol>:: name of the callback to execute
+    def after_command(meth = nil)
+      @after_commands ||= from_superclass(:after_command, [])
+      @after_commands << meth.to_s if meth
+
+      @after_commands
+    end
+
     # Registers another Thor subclass as a command.
     #
     # ==== Parameters

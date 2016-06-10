@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.description = "ThorPlus is an improvement upon the Thor command line tool suite."
   spec.email = "andrew@andrewpage.me"
   spec.executables = %w[thorp]
-  spec.files = %w[.document thor.gemspec] + Dir['*.md', 'bin/*', 'lib/**/*.rb']
+  spec.files = %w[.document thor-plus.gemspec] + Dir['*.md', 'bin/*', 'lib/**/*.rb']
   spec.homepage = "http://whatisthor.com/"
   spec.licenses = %w[MIT]
   spec.name = "thor-plus"

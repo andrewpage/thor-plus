@@ -21,5 +21,5 @@ Gem::Specification.new do |spec|
 
   # Active Support is a collection of utility classes and standard library extensions that were found useful for the Rails framework.
   # https://github.com/rails/rails/tree/master/activesupport
-  spec.add_dependency 'activesupport', '4.2.5'
+  spec.add_dependency 'activesupport', '~> 4'
 end

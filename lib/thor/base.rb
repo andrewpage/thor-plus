@@ -23,7 +23,7 @@ class Thor
   TEMPLATE_EXTNAME = ".tt"
 
   module Base
-    attr_accessor :options, :parent_options, :args
+    attr_accessor :current_command, :options, :parent_options, :args
 
     # It receives arguments in an Array and two hashes, one for options and
     # other for configuration.
@@ -86,9 +86,13 @@ class Thor
 
     # Execute a method with callbacks.
     def execute_command(name, arguments)
+      @current_command = name.to_sym
+
       run_callbacks :invoke do
         __send__(name, *arguments)
       end
+
+      @current_command = nil
     end
 
     class << self

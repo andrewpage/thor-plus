@@ -1,7 +1,12 @@
 require "set"
 require "thor/base"
 
+require 'active_support/callbacks'
+
 class Thor # rubocop:disable ClassLength
+  include ActiveSupport::Callbacks
+  define_callbacks :invoke
+
   class << self
     # Allows for custom "Command" package naming.
     #
@@ -31,8 +36,8 @@ class Thor # rubocop:disable ClassLength
     #
     # ==== Parameters
     # methods<*String|Symbol>:: Callbacks to execute before command runs.
-    def before_command(*methods)
-      methods.each { |m| register_callback(:before, m) }
+    def before_command(*arguments)
+      set_callback :invoke, :before, *arguments
     end
     alias_method :before_task, :before_command
 
@@ -40,25 +45,10 @@ class Thor # rubocop:disable ClassLength
     #
     # ==== Parameters
     # methods<*String|Symbol>:: Callbacks to execute after command runs.
-    def after_command(*methods)
-      methods.each { |m| register_callback(:after, m) }
+    def after_command(*arguments)
+      set_callback :invoke, :after, *arguments
     end
     alias_method :after_task, :after_command
-
-    # All callbacks defined for this class & superclass.
-    def callbacks
-      @callbacks ||= from_superclass(:callbacks, {})
-    end
-
-    # Register a callback of generic type.
-    #
-    # ==== Parameters
-    # type<Symbol>:: Type of callback to register.
-    # name<Symbol>:: Name of callback command to run.
-    def register_callback(type, name)
-      callbacks[type.to_sym] ||= []
-      callbacks[type.to_sym] << name.to_sym
-    end
 
     # Registers another Thor subclass as a command.
     #

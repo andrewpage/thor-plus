@@ -84,13 +84,11 @@ class Thor
       @args = thor_args.remaining
     end
 
-    # Run callbacks by type.
-    #
-    # ==== Parameters
-    # type<Symbol>:: Type of callbacks to run.
-    def run_callbacks(type)
-      callbacks = self.class.callbacks[type.to_sym] || []
-      callbacks.each { |c| __send__(c) }
+    # Execute a method with callbacks.
+    def execute_command(name, arguments)
+      run_callbacks :invoke do
+        __send__(name, *arguments)
+      end
     end
 
     class << self

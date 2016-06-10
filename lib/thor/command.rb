@@ -24,10 +24,7 @@ class Thor
         instance.class.handle_no_command_error(name)
       elsif public_method?(instance)
         arity = instance.method(name).arity
-
-        instance.run_callbacks(:before)
-        instance.__send__(name, *args)
-        instance.run_callbacks(:after)
+        instance.execute_command(name, args)
       elsif local_method?(instance, :method_missing)
         instance.__send__(:method_missing, name.to_sym, *args)
       else

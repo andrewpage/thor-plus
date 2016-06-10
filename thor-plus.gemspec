@@ -18,4 +18,8 @@ Gem::Specification.new do |spec|
   spec.required_rubygems_version = ">= 1.3.5"
   spec.summary = spec.description
   spec.version = Thor::VERSION
+
+  # Active Support is a collection of utility classes and standard library extensions that were found useful for the Rails framework.
+  # https://github.com/rails/rails/tree/master/activesupport
+  spec.add_dependency 'activesupport', '4.2.5'
 end

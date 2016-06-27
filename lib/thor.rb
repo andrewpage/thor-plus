@@ -193,13 +193,13 @@ class Thor # rubocop:disable ClassLength
     # shell<Thor::Shell>
     # command_name<String>
     #
-    def command_help(shell, command_name)
+    def command_help(shell, command_name, subcommand = false)
       meth = normalize_command_name(command_name)
       command = all_commands[meth]
       handle_no_command_error(meth) unless command
 
       shell.say "Usage:"
-      shell.say "  #{banner(command)}"
+      shell.say "  #{banner(command, nil, subcommand)}"
       shell.say
       class_options_help(shell, nil => command.options.values)
       if command.long_description
@@ -507,7 +507,7 @@ class Thor # rubocop:disable ClassLength
       if self.class.subcommands.include? command
         self.class.subcommand_classes[command].help(shell, true)
       else
-        self.class.command_help(shell, command)
+        self.class.command_help(shell, command, subcommand)
       end
     else
       self.class.help(shell, subcommand)

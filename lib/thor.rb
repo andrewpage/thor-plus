@@ -14,8 +14,12 @@ class Thor # rubocop:disable ClassLength
     # name<String>
     # options<Hash>
     #
-    def package_name(name, options = {})
-      @package_name = name.nil? || name == "" ? nil : name
+    def package_name(name = nil, options = {})
+      if name
+        @package_name = name.nil? || name == "" ? nil : name
+      else
+        @package_name ||= basename
+      end
     end
 
     # Sets the default command when thor is executed without an explicit command to be called.
@@ -219,12 +223,7 @@ class Thor # rubocop:disable ClassLength
       end
       list.sort! { |a, b| a[0] <=> b[0] }
 
-      if defined?(@package_name) && @package_name
-        shell.say "#{@package_name} commands:"
-      else
-        shell.say "Commands:"
-      end
-
+      shell.say "#{package_name} commands:"
       shell.print_table(list, :indent => 2, :truncate => true)
       shell.say
       class_options_help(shell)
@@ -394,7 +393,7 @@ class Thor # rubocop:disable ClassLength
     # the namespace should be displayed as arguments.
     #
     def banner(command, namespace = nil, subcommand = false)
-      "#{@package_name} #{command.formatted_usage(self, $thor_runner, subcommand)}"
+      "#{package_name} #{command.formatted_usage(self, $thor_runner, subcommand)}"
     end
 
     def baseclass #:nodoc:

@@ -252,6 +252,7 @@ class Thor # rubocop:disable ClassLength
 
     def subcommand(subcommand, subcommand_class)
       subcommands << subcommand.to_s
+      subcommand_class.package_name(self.package_name)
       subcommand_class.subcommand_help subcommand
       subcommand_classes[subcommand.to_s] = subcommand_class
 

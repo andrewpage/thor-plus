@@ -54,6 +54,15 @@ class Thor # rubocop:disable ClassLength
     end
     alias_method :after_task, :after_command
 
+    # Adds a callback method that should be executed around an executing task.
+    #
+    # ==== Parameters
+    # methods<*String|Symbol>:: Callbacks to execute after command runs.
+    def around_command(*arguments)
+      set_callback :invoke, :around, *arguments
+    end
+    alias_method :around_task, :around_command
+
     # Registers another Thor subclass as a command.
     #
     # ==== Parameters

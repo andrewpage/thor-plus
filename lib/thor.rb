@@ -394,7 +394,7 @@ class Thor # rubocop:disable ClassLength
     # the namespace should be displayed as arguments.
     #
     def banner(command, namespace = nil, subcommand = false)
-      "#{basename} #{command.formatted_usage(self, $thor_runner, subcommand)}"
+      "#{@package_name} #{command.formatted_usage(self, $thor_runner, subcommand)}"
     end
 
     def baseclass #:nodoc:
@@ -489,6 +489,7 @@ class Thor # rubocop:disable ClassLength
     def subcommand_help(cmd)
       desc "help [COMMAND]", "Describe subcommands or one specific subcommand"
       class_eval "
+        disable_class_options
         def help(command = nil, subcommand = true); super; end
 "
     end

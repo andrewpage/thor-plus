@@ -1,4 +1,4 @@
-require "thor/base"
+require "thor-plus/base"
 
 # Thor has a special class called Thor::Group. The main difference to Thor class
 # is that it invokes all commands at once. It also include some methods that allows

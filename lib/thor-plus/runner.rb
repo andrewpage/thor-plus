@@ -1,6 +1,6 @@
 require "thor"
-require "thor/group"
-require "thor/core_ext/io_binary_read"
+require "thor-plus/group"
+require "thor-plus/core_ext/io_binary_read"
 
 require "fileutils"
 require "open-uri"
@@ -102,7 +102,7 @@ class Thor::Runner < Thor #:nodoc: # rubocop:disable ClassLength
 
   desc "version", "Show Thor version"
   def version
-    require "thor/version"
+    require "thor-plus/version"
     say "Thor #{Thor::VERSION}"
   end
 

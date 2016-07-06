@@ -24,9 +24,9 @@ class Thor
     SHELL_DELEGATED_METHODS = [:ask, :error, :set_color, :yes?, :no?, :say, :say_status, :print_in_columns, :print_table, :print_wrapped, :file_collision, :terminal_width]
     attr_writer :shell
 
-    autoload :Basic, "thor/shell/basic"
-    autoload :Color, "thor/shell/color"
-    autoload :HTML,  "thor/shell/html"
+    autoload :Basic, "thor-plus/shell/basic"
+    autoload :Color, "thor-plus/shell/color"
+    autoload :HTML,  "thor-plus/shell/html"
 
     # Add shell to initialize config values.
     #

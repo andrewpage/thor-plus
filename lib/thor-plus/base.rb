@@ -1,17 +1,17 @@
-require "thor/command"
-require "thor/core_ext/hash_with_indifferent_access"
-require "thor/core_ext/ordered_hash"
-require "thor/error"
-require "thor/invocation"
-require "thor/parser"
-require "thor/shell"
-require "thor/line_editor"
-require "thor/util"
+require "thor-plus/command"
+require "thor-plus/core_ext/hash_with_indifferent_access"
+require "thor-plus/core_ext/ordered_hash"
+require "thor-plus/error"
+require "thor-plus/invocation"
+require "thor-plus/parser"
+require "thor-plus/shell"
+require "thor-plus/line_editor"
+require "thor-plus/util"
 
 class Thor
-  autoload :Actions,    "thor/actions"
-  autoload :RakeCompat, "thor/rake_compat"
-  autoload :Group,      "thor/group"
+  autoload :Actions,    "thor-plus/actions"
+  autoload :RakeCompat, "thor-plus/rake_compat"
+  autoload :Group,      "thor-plus/group"
 
   # Shortcuts for help.
   HELP_MAPPINGS       = %w[-h -? --help -D]

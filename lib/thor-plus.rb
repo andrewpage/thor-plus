@@ -1,5 +1,5 @@
 require "set"
-require "thor/base"
+require "thor-plus/base"
 
 require 'active_support/callbacks'
 
